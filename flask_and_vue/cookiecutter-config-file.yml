@@ -1,0 +1,14 @@
+default_context:
+  project_name: 'flask_and_vue'
+  project_slug: 'flask_and_vue'
+  domain_main: 'flask_and_vue.com'
+  backend_cors_origins: 'http://localhost, http://localhost:4200, http://localhost:3000, http://localhost:8080, http://dev.flask_and_vue.com, https://flask_and_vue.com, http://local.dockertoolbox.tiangolo.com, http://localhost.tiangolo.com'
+  docker_swarm_stack_name_main: 'flask_and_vue-com'
+  traefik_constraint_tag: 'flask_and_vue.com'
+  traefik_public_network: 'traefik-public'
+  traefik_public_constraint_tag: 'traefik-public'
+  docker_image_prefix: 'fnv_'
+  docker_image_backend: 'fnv_backend'
+  docker_image_frontend: 'fnv_frontend'
+  _copy_without_render: [frontend/src/**/*.html, frontend/src/**/*.vue, frontend/node_modules/*]
+  _template: ./

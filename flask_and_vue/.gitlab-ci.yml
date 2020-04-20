@@ -1,0 +1,36 @@
+image: tiangolo/docker-with-compose
+
+before_script:
+  - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN $CI_REGISTRY
+
+stages:
+  - build
+  - deploy
+  
+build-prod:
+  stage: build
+  script:
+    - TAG=prod FRONTEND_ENV=production sh ./scripts/build-push.sh
+  only:
+    - master
+  tags:
+    - build
+    - test
+
+deploy-prod:
+  stage: deploy
+  script:
+    - >
+      DOMAIN=flask_and_vue.com
+      TRAEFIK_TAG=flask_and_vue.com
+      STACK_NAME=flask_and_vue-com
+      TAG=prod
+      sh ./scripts/deploy.sh
+  environment:
+    name: production
+    url: https://flask_and_vue.com
+  only:
+    - master
+  tags:
+    - swarm
+    - prod
