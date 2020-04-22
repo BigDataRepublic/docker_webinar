@@ -18,6 +18,7 @@ curl -X POST http://localhost:5000 \
 
 
 # Build and then run the front-end as well, and run with docker-compose:
+docker build -t iris_frontend -f Dockerfile_frontend .
 
-docker-compose -d up
+docker-compose up -d
 docker-compose down

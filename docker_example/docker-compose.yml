@@ -1,0 +1,38 @@
+version: "3.4"
+services:
+    iris_frontend:
+        build:
+            context: .
+            dockerfile: Dockerfile_frontend
+        ports:
+            - "4200:4200"
+        depends_on:
+            - iris_prediction
+        networks:
+            default:
+                aliases:
+                    - frontend
+    iris_prediction:
+        build:
+            context: .
+            dockerfile: Dockerfile_prediction
+        ports:
+            - "5000:5000"
+        depends_on:
+            - iris_training
+        volumes:
+            - "iris_model_vol:/app/model"
+        networks:
+            default:
+                aliases:
+                    - rest-api
+    iris_training:
+        build:
+            context: .
+            dockerfile: Dockerfile_training
+        volumes:
+            - "iris_model_vol:/app/model"
+volumes:
+    iris_model_vol:
+networks:
+    default:

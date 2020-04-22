@@ -1,0 +1,19 @@
+FROM node:12.16.2
+
+LABEL version="1.0"
+LABEL description="This container runs an Angular JS app that connects to a REST API on localhost:5000."
+
+WORKDIR /app
+
+ENV PATH /app/node_modules/.bin:$PATH
+
+COPY ./frontend/model-display/package.json /app/package.json
+RUN npm install
+
+# Copy rest of relevant code
+COPY ./frontend/model-display /app/
+
+ENTRYPOINT [ "ng", "serve" ]
+CMD [ "--host", "0.0.0.0" ]
+
+# docker run -d -p 4200:4200 <image>
