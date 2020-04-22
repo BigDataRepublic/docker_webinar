@@ -1,8 +1,10 @@
 import pickle
-
 from sklearn.ensemble import RandomForestRegressor
 from flask import Flask, request, jsonify
+from flask_cors import CORS
+
 app = Flask(__name__)
+CORS(app)
 
 output_file = "/app/model/model.pkl"
 with open(output_file, 'rb') as model_file:
@@ -12,7 +14,7 @@ with open(output_file, 'rb') as model_file:
 def predict():
     pred_data = request.json
     pred = rf.predict(pred_data)[0]
-    return jsonify(pred)
+    return jsonify(value=pred)
 
 
 if __name__ == "__main__":

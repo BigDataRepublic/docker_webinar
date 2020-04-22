@@ -8,7 +8,7 @@ docker run -v ~/Projects/docker_webinar/docker_webinar/docker_example/model:/app
 docker build -t iris_predictor -f Dockerfile_prediction .
 
 # Run it: host prediction api
-docker run -p 5000:0 -v ~/Projects/docker_webinar/docker_webinar/docker_example/model:/app/model iris_predictor
+docker run -p 5000:5000 -v ~/Projects/docker_webinar/docker_webinar/docker_example/model:/app/model iris_predictor
 
 # Show it's working by sending curl request:
 curl -X POST http://localhost:5000 \
