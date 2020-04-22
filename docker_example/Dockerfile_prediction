@@ -1,0 +1,25 @@
+FROM ubuntu:18.04
+
+LABEL version="1.0"
+LABEL description="This container exposes a fitted random forest model with Flask on the Iris dataset."
+LABEL maintainer="name@company.com"
+
+# Install python and pip
+RUN apt-get update -y && \
+	apt-get install -y python-pip python-dev
+
+# First just copy requirements to use Docker cache
+COPY ./prediction_app/prediction_requirements.txt /requirements.txt
+RUN pip install -r /requirements.txt
+
+# Copy rest of relevant code
+COPY ./prediction_app /app
+
+# Set flask environment variable and open port 80
+ENV FLASK_APP=/app/main.py
+EXPOSE 5000
+
+ENTRYPOINT [ "flask" ]
+CMD [ "run", "--host=0.0.0.0" ]
+
+# docker run -p 5000:5000 -v ~/Projects/docker_webinar/docker_webinar/docker_example/model:/app/model <image>
