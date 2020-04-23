@@ -8,13 +8,18 @@ WORKDIR /app
 
 ENV PATH /app/node_modules/.bin:$PATH
 
-COPY ./frontend/model-display/package.json /app/package.json
-RUN npm install
+COPY --chown=root:root ./security/add_user_group.sh ./frontend/model-display/package.json /app/
+RUN npm install && \
+    chmod 550 /app/add_user_group.sh && \
+	/app/add_user_group.sh && \
+	rm /app/add_user_group.sh
+
+USER dockerapp
 
 # Copy rest of relevant code
-COPY ./frontend/model-display /app/
+COPY --chown=dockerapp:dockerapp ./frontend/model-display /app/
 
 ENTRYPOINT [ "ng", "serve" ]
-CMD [ "--host", "0.0.0.0" ]
+CMD [ "--host", "0.0.0.0", "--disableHostCheck", "true" ]
 
 # docker run -d -p 4200:4200 <image>

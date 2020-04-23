@@ -8,6 +8,7 @@ COPY --chown=root:root ./security/add_user_group.sh ./prediction_app/requirement
 RUN apt-get update -y && \
 	apt-get install -y python-pip python-dev && \
 	pip install -r /app/requirements.txt && \
+	chmod 550 /app/add_user_group.sh && \
 	/app/add_user_group.sh && \
 	rm /app/add_user_group.sh && \
 	rm -rf /var/lib/apt/lists/* && \
