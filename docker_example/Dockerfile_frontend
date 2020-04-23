@@ -19,6 +19,7 @@ USER dockerapp
 # Copy rest of relevant code
 COPY --chown=dockerapp:dockerapp ./frontend/model-display /app/
 
+EXPOSE 4200
 ENTRYPOINT [ "ng", "serve" ]
 CMD [ "--host", "0.0.0.0", "--disableHostCheck", "true" ]
 

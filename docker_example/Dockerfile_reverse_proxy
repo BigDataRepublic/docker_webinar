@@ -12,7 +12,5 @@ RUN chmod 775 /etc/nginx/conf.d && \
 	find /etc/nginx/conf.d/ -type f -exec chmod 664 -- {} +
 
 EXPOSE 443
-
-CMD [ "/bin/sh", "-c", "envsubst < /etc/nginx/conf.d/nginx_tls_proxy.template > /etc/nginx/nginx.conf && exec nginx -g 'daemon off;'" ]
-
-# docker run -d -p 443:443 <image>
+CMD [ "/bin/sh", "-c", \
+"envsubst < /etc/nginx/conf.d/nginx_tls_proxy.template > /etc/nginx/nginx.conf && exec nginx -g 'daemon off;'" ]

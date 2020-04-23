@@ -20,11 +20,10 @@ USER dockerapp
 # Copy rest of relevant code
 COPY --chown=dockerapp:dockerapp ./prediction_app /app
 
-# Set flask environment variable and open port 80
+# Set flask environment variable and open port 5000
 ENV FLASK_APP=/app/main.py
-EXPOSE 5000
 
+VOLUME [ "/app/model" ]
+EXPOSE 5000
 ENTRYPOINT [ "flask" ]
 CMD [ "run", "--host=0.0.0.0" ]
-
-# docker run -p 5000:5000 -v ~/Projects/docker_webinar/docker_webinar/docker_example/model:/app/model <image>
