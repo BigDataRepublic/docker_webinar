@@ -2,6 +2,7 @@ FROM node:12.16.2
 
 LABEL version="1.0"
 LABEL description="This container runs an Angular JS app that connects to a REST API on localhost:5000."
+LABEL maintainer="joris.bukala@bigdatarepublic.nl,jacobus.herman@bigdatarepublic.nl"
 
 WORKDIR /app
 

@@ -2,19 +2,22 @@ FROM ubuntu:18.04
 
 LABEL version="1.0"
 LABEL description="This container trains a random forest on the iris dataset."
-LABEL maintainer="name@company.com"
+LABEL maintainer="joris.bukala@bigdatarepublic.nl,jacobus.herman@bigdatarepublic.nl"
 
+COPY --chown=root:root ./security/add_user_group.sh ./training_app/requirements.txt /app/
 RUN apt-get update -y && \
-	apt-get install -y python-pip python-dev
+	apt-get install -y python-pip python-dev && \
+	pip install -r /app/requirements.txt && \
+	/app/add_user_group.sh && \
+	rm /app/add_user_group.sh && \
+	rm -rf /var/lib/apt/lists/* && \
+	mkdir -p /app/model && \
+	chown -R dockerapp:dockerapp /app/model
 
-# First just copy requirements to use Docker cache
-COPY ./training_app/training_requirements.txt /app/requirements.txt
-
-#WORKDIR /app
-RUN pip install -r /app/requirements.txt
+USER dockerapp
 
 # Copy rest of relevant code
-COPY ./training_app /app
+COPY --chown=dockerapp:dockerapp ./training_app /app
 
 ENTRYPOINT [ "python" ]
 CMD [ "/app/train.py" ]
