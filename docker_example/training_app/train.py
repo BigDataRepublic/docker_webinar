@@ -1,11 +1,15 @@
 import pickle
-
+from os import path
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import mean_squared_error
 from sklearn import datasets
 
 output_file = "/app/model/model.pkl"
+
+if path.exists(output_file):
+	print("The output file at '{0}' already exists. Exiting to prevent data loss.".format(output_file))
+	exit(0)
 
 # add parameters for tuning
 num_estimators = 100
