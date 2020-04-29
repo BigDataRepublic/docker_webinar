@@ -1,3 +1,7 @@
+# Build and run first container to calculate pi via monte carlo approximation
+docker build -t approx_pi -f Dockerfile_first .
+docker run approx_pi
+
 # Build trainer container
 docker build -t iris_trainer -f Dockerfile_training .
 
