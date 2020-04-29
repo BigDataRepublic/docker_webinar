@@ -17,10 +17,8 @@ RUN apt-get update -y && \
 
 USER dockerapp
 
-# Copy rest of relevant code
 COPY --chown=dockerapp:dockerapp ./prediction_app /app
 
-# Set flask environment variable and open port 5000
 ENV FLASK_APP=/app/main.py
 
 VOLUME [ "/app/model" ]
