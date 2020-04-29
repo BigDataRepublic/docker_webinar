@@ -2,6 +2,9 @@
 docker build -t approx_pi -f Dockerfile_first .
 docker run approx_pi
 
+# show command line argumentss
+docker run approx_pi 5000
+
 # Build trainer container
 docker build -t iris_trainer -f Dockerfile_training .
 
