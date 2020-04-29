@@ -17,7 +17,6 @@ RUN apt-get update -y && \
 
 USER dockerapp
 
-# Copy rest of relevant code
 COPY --chown=dockerapp:dockerapp ./training_app /app
 
 VOLUME [ "/app/model" ]
